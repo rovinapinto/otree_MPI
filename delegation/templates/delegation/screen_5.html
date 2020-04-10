@@ -1,0 +1,31 @@
+<style type="text/css">
+.choice li {
+    list-style-type: none;
+}
+</style>
+<!-- End Styles -->
+
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+
+{% block content %}
+
+
+<div>
+		<p> Suppose (you have learnt) that case 1 has occured. {% formfield group.project_4 %} </p>
+
+		<p> Suppose (you have learnt) that case 2 has occured. {% formfield group.project_5 label="Please choose one of the available projects:" %}  </p>
+
+		<p> Suppose that case 3 has occured. Each participant gets 50 points. </p>
+
+		<p> Suppose that case 4 has occured (or you have not learnt which case has occured).
+		Each participant gets 50 points. </p>
+
+
+	</div>
+
+
+
+{% next_button %}
+{% endblock %}

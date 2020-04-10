@@ -1,0 +1,51 @@
+<!-- Start Styles. Move the 'style' tags and everything between them to between the 'head' tags -->
+
+<style type="text/css">
+.DecisionTable{ background-color:#FFFFE0;border-collapse:collapse;color:#000;font-size:16px; }
+.DecisionTable th { background-color:#b03939;color:white;width:30%; }
+.DecisionTable td, .DecisionTable th { padding:6px;border:0; }
+.DecisionTable td { border-bottom:1px dotted #b03939; }
+</style>
+<!-- End Styles -->
+
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Choice
+{% endblock %}
+
+{% block content %}
+
+	<p> Your role: <strong> {{player.role}}</strong> </p>
+	<p> Your endowment: {{player.endowment}} </p>
+	<p>	The table below illustrates the payoffs that each project gives to you and to participant A. </p>
+	<br>
+	<table class="DecisionTable">
+		<tr>
+			<th style="text-align: left">Projects</th>
+			<th style="text-align: left">Participant A</th>
+			<th style="text-align: left">Participant B</th>
+		</tr>
+		<tr>
+			<td>X</td>
+			<td>300</td>
+			<td>200</td>
+		</tr>
+		<tr>
+			<td>Y</td>
+			<td>130</td>
+			<td>230</td>
+		</tr>
+	</table>
+
+	<br>
+
+	<p>If neither X nor Y are implemented, each participant gets 50 points.</p>
+
+	<br>
+
+	{% next_button %}
+
+
+{% endblock %}

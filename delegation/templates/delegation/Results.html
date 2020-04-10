@@ -1,0 +1,25 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Outcome
+{% endblock %}
+
+{% block content %}
+
+{% if player.role == 'Participant A' %}
+	
+	<p>Participant B chooses {{group.project}} project .</p>
+
+	
+{% else %}
+
+	<p> Scenario {{group.case}} has occured. </p>
+
+
+{% endif %}
+
+<p>You have earned {{player.payoff}}.</p>
+
+
+{% endblock %}

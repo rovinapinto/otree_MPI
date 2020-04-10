@@ -1,0 +1,32 @@
+<style type="text/css">
+.choice li {
+    list-style-type: none;
+}
+</style>
+<!-- End Styles -->
+
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+
+{% block content %}
+
+	<p> Suppose (you have learnt) that case 1 has occured.  {% formfield group.project_1 %} </p> 
+		
+
+	<p> Suppose (you have learnt) that case 2 has occured. {% formfield group.project_2 %}</p>
+
+	<p> Suppose (you have learnt) that case 3 has occured.{% formfield group.project_3 %}</p>
+		<!--<ul class = "choice">
+			<li> <input type="radio" name="choice" value = "Y"> Project Y </li>
+			<li> <input type="radio" name="choice" value = "Neither">Neither (each participant gets 50 points) </li>
+		</ul> -->
+
+	<p> Suppose that case 4 has occured (or you have not learnt which case has occured).
+	Each participant gets 50 points. </p>
+
+	<!--<hr> horizontal line -->
+
+{% next_button %}
+{% endblock %}
+

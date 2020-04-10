@@ -1,0 +1,15 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+
+{% block content %}
+
+
+
+<p> You contributed {{group.contribution_1}}.</p>
+
+<p> There is --- probability that Case --- has occurred. </p> 
+<!-- does this need to be on a different page as it has to be updated?-->
+{% next_button %}
+
+{% endblock %}

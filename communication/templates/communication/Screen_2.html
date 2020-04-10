@@ -1,0 +1,72 @@
+<style type="text/css">
+.choice li {
+    list-style-type: none;
+}
+</style>
+<!-- End Styles -->
+
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+
+{% block content %}
+
+	<p> Your role: <strong> {{player.role}}</strong> </p>
+	<div> 
+		<p> (I) Suppose that participant A has chosen Option 1. <u> This means that either project can be reported if it is available. </u> </p>
+
+		<p> You will learn which projects are available, if any, with a probability of 50%. You can increase this probability by using your endowment to make a contribution of points. The contribution can be any number from the list: {0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100}. </p>
+
+		<p> <strong> {% formfield group.contribution_1 label="Please choose your contribution:" %}  </strong> </p>
+		
+	</div>
+
+	<div>
+	</br>
+	<p> Suppose (you have learnt) that case 1 has occured.  {% formfield group.project_1 %} </p> 
+		
+
+	<p> Suppose (you have learnt) that case 2 has occured. {% formfield group.project_2 %}</p>
+
+	<p> Suppose (you have learnt) that case 3 has occured.{% formfield group.project_3 %}</p>
+		<!--<ul class = "choice">
+			<li> <input type="radio" name="choice" value = "Y"> Project Y </li>
+			<li> <input type="radio" name="choice" value = "Neither">Neither (each participant gets 50 points) </li>
+		</ul> -->
+
+	<p> Suppose that case 4 has occured or you have not learnt which case has occured.
+	</br>Each participant gets 50 points.</p>
+
+	</div>
+
+	<hr> 
+
+	<div>
+		<p> (II) Suppose that participant A has chosen Option 2. <u> This means that Project Y cannot be reported even if it is available. </u> </p>
+
+		<p> You will learn which projects are available, if any, with a probability of 50%. You can increase this probability by using your endowment to make a contribution of points. The contribution can be any number from the list:{0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50}. </p>
+
+		<p> <strong>  {% formfield group.contribution_2 label="Please choose your contribution:" %} </strong> </p>
+	</div>
+
+	<div>
+		</br>
+
+		<p> Suppose (you have learnt) that case 1 has occured. {% formfield group.project_4 %} </p>
+
+		<p> Suppose (you have learnt) that case 2 has occured. {% formfield group.project_5 %}  </p>
+
+		<p> Suppose (you have learnt) that case 3 has occured. Each participant gets 50 points. </p>
+
+		<p> Suppose that case 4 has occured or you do not know which case has occured.
+		Each participant gets 50 points. </p>
+
+
+	</div>
+
+	<br>
+
+
+{% next_button %}
+
+	{% endblock %}
