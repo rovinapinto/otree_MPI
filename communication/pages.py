@@ -10,9 +10,6 @@ class Screen_1_choice(Page):
     def is_displayed(self):
         return self.player.id_in_group == 1
 
-    def after_all_players_arrive(self):
-        self.player.endowment()
-
 
 #class WaitForP_A(WaitPage):
     #pass
@@ -39,8 +36,8 @@ class ResultsWaitPage(WaitPage):
         
     after_all_players_arrive = 'set_payoffs'
 
-    def after_all_players_arrive(self):
-        self.group.project()
+    #def after_all_players_arrive(self):
+        #self.group.project()
 
 
 class Results(Page):

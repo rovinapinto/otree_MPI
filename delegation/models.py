@@ -55,76 +55,67 @@ class Group(BaseGroup):
 
 
     def set_payoffs(self):
-        p1 = self.get_player_by_role('Participant A')
-        print('participant A:', p1)
-        p2 = self.get_player_by_role('Participant B')
-        print('participant B:', p2)
-        p1.payoff = c(150)
-        p2.payoff = c(200)
-        return p1.payoff, p2.payoff
-
-    '''
-    def set_payoffs(self):
         p1 = self.get_player_by_id(1)
         p2 = self.get_player_by_id(2)
+
+        p1_endowment = c(50)
+        p2_endowment = c(100)
         
         if self.case ==1: 
             if self.decision ==1 and self.contribution_1 != c(0):
                 if self.project_1 == "X":
-                    p1.payoff = p1.endowment + c(300)
-                    p2.payoff = p2.endowment - (self.contribution_1) + c(200)
+                    p1.payoff = p1_endowment + c(300)
+                    p2.payoff = p2_endowment - (self.contribution_1) + c(200)
                 elif self.project_1 == "Y":
-                    p1.payoff = p1.endowment + c(130)
-                    p2.payoff = p2.endowment - (self.contribution_1) + c(230)
+                    p1.payoff = p1_endowment + c(130)
+                    p2.payoff = p2_endowment - (self.contribution_1) + c(230)
                 else:
-                    p1.payoff = p1.endowment + c(50)
-                    p2.payoff = p2.endowment - (self.contribution_1) + c(50) #makes a contribution and still choose neither so contribution deducted or not?
+                    p1.payoff = p1_endowment + c(50)
+                    p2.payoff = p2_endowment - (self.contribution_1) + c(50) #makes a contribution and still choose neither so contribution deducted or not?
             elif self.decision ==2 and self.contribution_2 != c(0): 
                 if self.project_1 == "X":
-                    p1.payoff = p1.endowment + c(300)
-                    p2.payoff = p2.endowment - (self.contribution_2) + c(200)
+                    p1.payoff = p1_endowment + c(300)
+                    p2.payoff = p2_endowment - (self.contribution_2) + c(200)
                 else:
-                    p1.payoff = p1.endowment + c(50)
-                    p2.payoff = p2.endowment - (self.contribution_2) + c(50) #check
+                    p1.payoff = p1_endowment + c(50)
+                    p2.payoff = p2_endowment - (self.contribution_2) + c(50) #check
             else:
-                    p1.payoff = p1.endowment + c(50)
-                    p2.payoff = p2.endowment + c(50)
+                    p1.payoff = p1_endowment + c(50)
+                    p2.payoff = p2_endowment + c(50)
         elif self.case == 2:
             if self.decision == 1 and self.contribution_1 != c(0): 
                 if self.project_2 == "X":
-                    p1.payoff = p1.endowment + c(300)
-                    p2.payoff = p2.endowment - (self.contribution_1) + c(200)
+                    p1.payoff = p1_endowment + c(300)
+                    p2.payoff = p2_endowment - (self.contribution_1) + c(200)
                 else:
-                    p1.payoff = p1.endowment + c(50)
-                    p2.payoff = p2.endowment - (self.contribution_1) + c(50) #check
+                    p1.payoff = p1_endowment + c(50)
+                    p2.payoff = p2_endowment - (self.contribution_1) + c(50) #check
             elif self.decision == 2 and self.contribution_2 != c(0):
                 if self.project_2 == "X":
-                    p1.payoff = p1.endowment + c(300)
-                    p2.payoff = p2.endowment - (self.contribution_1) + c(200)
+                    p1.payoff = p1_endowment + c(300)
+                    p2.payoff = p2_endowment - (self.contribution_1) + c(200)
                 else:
-                    p1.payoff = p1.endowment + c(50)
-                    p2.payoff = p2.endowment - (self.contribution_2) + c(50) #check
+                    p1.payoff = p1_endowment + c(50)
+                    p2.payoff = p2_endowment - (self.contribution_2) + c(50) #check
             else:
-                p1.payoff = p1.endowment + c(50)
-                p2.payoff = p2.endowment + c(50)
+                p1.payoff = p1_endowment + c(50)
+                p2.payoff = p2_endowment + c(50)
         elif self.case == 3:
             if self.decision == 1 and self.contribution_1 != c(0):
                 if self.project_3 == "Y":
-                    p1.payoff = p1.endowment + c(130)
-                    p2.payoff = p2.endowment - (self.contribution_1) + c(230)
+                    p1.payoff = p1_endowment + c(130)
+                    p2.payoff = p2_endowment - (self.contribution_1) + c(230)
                 else:
-                    p1.payoff = p1.endowment + c(50)
-                    p2.payoff = p2.endowment - (self.contribution_1) + c(50) #check
+                    p1.payoff = p1_endowment + c(50)
+                    p2.payoff = p2_endowment - (self.contribution_1) + c(50) #check
             else:
-                p1.payoff = p1.endowment + c(50)
-                p2.payoff = p2.endowment + c(50)
+                p1.payoff = p1_endowment + c(50)
+                p2.payoff = p2_endowment + c(50)
         else: 
-            p1.payoff = p1.endowment + c(50)
-            p2.payoff = p2.endowment + c(50)
+            p1.payoff = p1_endowment + c(50)
+            p2.payoff = p2_endowment + c(50)
 
-        '''
-
-        #return p1.payoff, p2.payoff #run this method set_payoff to receive the payoffs ---> runs in pages.py
+        return p1.payoff, p2.payoff #run this method set_payoff to receive the payoffs ---> runs in pages.py
 
     def project(self):
         if self.case ==1: 
@@ -176,9 +167,9 @@ class Player(BasePlayer):
 
     def endowment(self):
         if self.id_in_group == 1: #write in terms of player roles instead should this go in constants??
-             endowment = c(50)
+             endowment = 50
         if self.id_in_group == 2: 
-             endowment = c(100)  
+             endowment = 100 
         return endowment
     
     
