@@ -2,6 +2,10 @@
 .choice li {
     list-style-type: none;
 }
+ul {
+    list-style: square;
+  	padding-left: 0;
+}
 </style>
 <!-- End Styles -->
 
@@ -23,20 +27,21 @@
 
 	<div>
 	</br>
-	<p> Suppose (you have learnt) that case 1 has occured.  {% formfield group.project_1 %} </p> 
+	<ul>
+	<li> Suppose (you have learnt) that case 1 has occured.  {% formfield group.project_1 %} </li> 
 		
 
-	<p> Suppose (you have learnt) that case 2 has occured. {% formfield group.project_2 %}</p>
+	<li> Suppose (you have learnt) that case 2 has occured. {% formfield group.project_2 %}</li>
 
-	<p> Suppose (you have learnt) that case 3 has occured.{% formfield group.project_3 %}</p>
+	<li> Suppose (you have learnt) that case 3 has occured.{% formfield group.project_3 %}</li>
 		<!--<ul class = "choice">
 			<li> <input type="radio" name="choice" value = "Y"> Project Y </li>
 			<li> <input type="radio" name="choice" value = "Neither">Neither (each participant gets 50 points) </li>
 		</ul> -->
 
-	<p> Suppose that case 4 has occured (or you have not learnt which case has occured).
-	</br>Each participant gets 50 points.</p>
-
+	<li> Suppose that case 4 has occured (or you have not learnt which case has occured).
+	</br>Each participant gets 50 points.</li>
+	</ul>
 	</div>
 
 	<hr> 
@@ -50,18 +55,19 @@
 	</div>
 
 	<div>
-		</br>
+		<br>
+		<ul>
+			<li> Suppose (you have learnt) that case 1 has occured. {% formfield group.project_4 %} </li>
 
-		<p> Suppose (you have learnt) that case 1 has occured. {% formfield group.project_4 %} </p>
+			<li> Suppose (you have learnt) that case 2 has occured. {% formfield group.project_5 label="Please choose one of the available projects:" %}  </li>
 
-		<p> Suppose (you have learnt) that case 2 has occured. {% formfield group.project_5 label="Please choose one of the available projects:" %}  </p>
+			<li> Suppose that case 3 has occured. Each participant gets 50 points. </li>
+			<br>
 
-		<p> Suppose that case 3 has occured. Each participant gets 50 points. </p>
+			<li> Suppose that case 4 has occured (or you have not learnt which case has occured).
+			Each participant gets 50 points. </li>
 
-		<p> Suppose that case 4 has occured (or you have not learnt which case has occured).
-		Each participant gets 50 points. </p>
-
-
+		</ul>	
 	</div>
 
 	<br>
