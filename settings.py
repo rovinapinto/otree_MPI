@@ -56,6 +56,11 @@ SESSION_CONFIGS = [
         num_demo_participants=2,
         app_sequence=['communication'],
     ),
+    dict(
+        name='bertrand_oligopoly',
+        num_demo_participants=3,
+        app_sequence=['bertrand_oligopoly']
+    ),
 ]
 
 
