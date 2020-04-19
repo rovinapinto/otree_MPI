@@ -70,7 +70,12 @@ class Player(BasePlayer):
     decision_6 = bool_field()
     decision_7 = make_field_1("How much would you be willing to pay in order to know the outcome of the lottery?")
     decision_8 = make_field_2("What is the smallest amount of money y such that you would prefer to earn y€ for sure than to play the lottery?")
-
+    decision_9 = bool_field()
+    decision_10 = bool_field()
+    decision_11 = make_field_2("How much would you be willing to pay in order not to know the outcome of the lottery?")
+    decision_12 = bool_field()
+    decision_13 = bool_field()
+    decision_14 = make_field_2("How much would you be willing to pay in order to know the outcome of the lottery?")
 
 
 

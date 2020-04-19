@@ -21,6 +21,16 @@ class Block_2(Page):
     form_model = 'player'
     form_fields = ['decision_8']
 
+class Decisions_other(Page):
+	def vars_for_template(self):
+		return dict(
+			new_amount = self.player.decision_8-1,
+			new_amount_more = self.player.decision_8+2,
+			)
+
+	form_model = 'player'
+	form_fields = ['decision_9', 'decision_10', 'decision_11', 'decision_12', 'decision_13', 'decision_14']
+
 class ResultsWaitPage(WaitPage):
     def after_all_players_arrive(self):
         pass
@@ -30,4 +40,4 @@ class Results(Page):
     pass
 
 
-page_sequence = [Block_1, Decisions, Block_2, ResultsWaitPage, Results]
+page_sequence = [Block_1, Decisions, Block_2, Decisions_other,ResultsWaitPage, Results]
