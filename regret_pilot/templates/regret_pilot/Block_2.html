@@ -1,0 +1,47 @@
+<style type="text/css">
+.DecisionTable{ background-color:#F5F5F5;border-collapse:collapse;color:#000;font-size:16px; }
+.DecisionTable th { background-color:#666633;color:white;width:40%; }
+.DecisionTable td, .DecisionTable th { padding:6px;border:0; }
+.DecisionTable td { border-bottom:1px dotted #666633; }
+</style>
+
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Block 2
+{% endblock %}
+
+{% block content %}
+	
+	<p><strong> Decision 8:</strong> You have two options: <p>
+	<br>
+	
+	<table class="DecisionTable">
+		<tr>
+			<th style="text-align: left">Left</th>
+			<th style="text-align: left">Right</th>
+		</tr>
+		<tr>
+			<td>20€ with 50% probability and 0 with 50% probability</td>
+			<td>y€ with certainty</td>
+		</tr>
+	</table>
+	<br>
+	<div>
+		<p>
+			First, you must specify the smallest number y, such that you would prefer option “Right” to option “Left”. You can choose any number in the list (0; 1; 2; 3; 4; 5; 6; 7; 8; 9; 10; 11; 12; 13; 14; 15). After you have submitted your decision, the computer will randomly pick a number from the list (0; 1; 2; 3; 4; 5; 6; 7; 8; 9; 10; 11; 12; 13; 14; 15). All numbers have the same probability of being picked. If the number picked by the computer is smaller than the number y you chose, then you will play the lottery. If the number picked by the computer is equal to or bigger than the number y you chose, you will earn y€. 
+		</p>
+	</div>
+
+	<div>
+		<p>
+			<strong>Important information:</strong> After you have submitted your decision, the computer will let you know the outcome of the lottery even if you do not play it. This means that, if you do not play the lottery, you will learn nevertheless how much you would have earned, had you played the lottery.
+		</p>	
+	</div>
+	<br>
+	<p>{% formfield player.decision_8 %}</p>
+	<br>
+    {% next_button %}
+
+{% endblock %}

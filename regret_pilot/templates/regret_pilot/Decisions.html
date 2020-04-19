@@ -1,0 +1,129 @@
+<style type="text/css">
+.DecisionTable{ background-color:#F0F0F0;border-collapse:collapse;color:#000;font-size:16px; }
+.DecisionTable th { background-color:#006666;color:white;width:40%; }
+.DecisionTable td, .DecisionTable th { padding:6px;border:0; }
+.DecisionTable td { border-bottom:1px dotted #006666; }
+</style>
+
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Block 1
+{% endblock %}
+
+{% block content %}
+	<div>
+		<p><strong> Decision 2:</strong> You have two options: </p>
+		<br>
+		
+		<table class="DecisionTable">
+			<tr>
+				<th style="text-align: left">Left</th>
+				<th style="text-align: left">Right</th>
+			</tr>
+			<tr>
+				<td>{{new_amount}}€ with 50% probability and 0 with 50% probability</td>
+				<td>5€ with certainty</td>
+			</tr>
+		</table>
+	</div>
+	<br>
+	<div>
+		<p>
+			<strong>Important information:</strong> After you have submitted your decision, the computer will let you know the outcome of the lottery even if you do not play it. This means that, if you do not play the lottery, you will learn nevertheless how much you would have earned, had you played the lottery.
+		</p>	
+	</div>
+	<p>{% formfield player.decision_2 %}</p>
+	<br>
+	<br>
+	<div>
+		<p><strong> Decision 3:</strong> You have two options: </p>
+		<br>
+		
+		<table class="DecisionTable">
+			<tr>
+				<th style="text-align: left">Left</th>
+				<th style="text-align: left">Right</th>
+			</tr>
+			<tr>
+				<td>{{new_amount}}€ with 50% probability and 0 with 50% probability</td>
+				<td>5€ with certainty</td>
+			</tr>
+		</table>
+		<br>
+	</div>
+
+	<div>
+		<p>
+			<strong>Important information:</strong> After you have submitted your decision, the computer will <strong>not</strong> let you know the outcome of the lottery if you do not play it. This means that, if you do not play the lottery, you will <strong>not</strong> learn how much you would have earned, had you played it.
+		</p>	
+	</div>
+	<p>{% formfield player.decision_3 %}</p>
+	<br>
+	<br>
+	<div>
+		<p>
+			<strong>Decision 4:</strong> You have been assigned 5€ with certainty, but you will nevertheless learn the outcome of the lottery. <p>{% formfield player.decision_4 %}</p>
+		</p>
+	</div>
+	<br>
+	<br>
+	<div>
+		<p><strong> Decision 5:</strong> You have two options: </p>
+		<br>
+	
+		<table class="DecisionTable">
+			<tr>
+				<th style="text-align: left">Left</th>
+				<th style="text-align: left">Right</th>
+			</tr>
+			<tr>
+				<td>{{new_amount_less}}€ with 50% probability and 0 with 50% probability</td>
+				<td>5€ with certainty</td>
+			</tr>
+		</table>
+		<br>
+	</div>
+	<div>
+		<p>
+			<strong>Important information:</strong> After you have submitted your decision, the computer will let you know the outcome of the lottery even if you do not play it. This means that, if you do not play the lottery, you will learn nevertheless how much you would have earned, had you played it.
+		</p>	
+	</div>
+	<p>{% formfield player.decision_5 %}</p>
+	<br>
+	<br>
+	<div>
+		<p><strong> Decision 6:</strong> You have two options: </p>
+		<br>
+		
+		<table class="DecisionTable">
+			<tr>
+				<th style="text-align: left">Left</th>
+				<th style="text-align: left">Right</th>
+			</tr>
+			<tr>
+				<td>{{new_amount_less}}€ with 50% probability and 0 with 50% probability</td>
+				<td>5€ with certainty</td>
+			</tr>
+		</table>
+		<br>
+	</div>
+
+	<div>
+		<p>
+			<strong>Important information:</strong> After you have submitted your decision, the computer will <strong>not</strong> let you know the outcome of the lottery if you do not play it. This means that, if you do not play the lottery, you will <strong>not</strong> learn how much you would have earned, had you played it.
+		</p>	
+	</div>
+	<p>{% formfield player.decision_6 %}</p>
+	<br>
+	<br>
+	<div>
+		<p>
+			<strong>Decision 7:</strong> You have been assigned 5€ with certainty, but you will nevertheless learn the outcome of the lottery. <p>{% formfield player.decision_7 %}</p>
+		</p>
+	</div>
+	<br>
+    {% next_button %}
+
+{% endblock %}
