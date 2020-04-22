@@ -64,7 +64,24 @@
 	<br>
 	<div>
 		<p>
-			<strong>Decision 11:</strong> You have been assigned {{new_amount}}€ with certainty, but you will nevertheless learn the outcome of the lottery. <p>{% formfield player.decision_11 %}</p>
+			<strong>Decision 11:</strong> You have two options: </p>
+			<br>
+		
+			<table class="DecisionTable">
+				<tr>
+					<th style="text-align: left">Left</th>
+					<th style="text-align: left">Right</th>
+				</tr>
+				<tr>
+					<td>20€ with 50% probability and 0 with 50% probability</td>
+					<td>{{new_amount}}€ with certainty</td>
+				</tr>
+		</table>
+	</div>
+	<br>
+	<div>
+		<p>
+			 You have been assigned {{new_amount}}€ with certainty, but you will nevertheless learn the outcome of the lottery. <p>{% formfield player.decision_11 %}</p>
 		</p>
 	</div>
 	<br>
@@ -120,7 +137,24 @@
 	<br>
 	<div>
 		<p>
-			<strong>Decision 14:</strong> You have been assigned {{new_amount_more}}€ with certainty, but you will nevertheless learn the outcome of the lottery. <p>{% formfield player.decision_14 %}</p>
+			<strong>Decision 14:</strong> You have two options:
+			<br>
+	
+			<table class="DecisionTable">
+				<tr>
+					<th style="text-align: left">Left</th>
+					<th style="text-align: left">Right</th>
+				</tr>
+				<tr>
+					<td>20€ with 50% probability and 0 with 50% probability</td>
+					<td>{{new_amount_more}}€ with certainty</td>
+				</tr>
+			</table>
+			<br>
+	</div>
+	<div>
+		<p>
+			You have been assigned {{new_amount_more}}€ with certainty, but you will nevertheless learn the outcome of the lottery. <p>{% formfield player.decision_14 %}</p>
 		</p>
 	</div>
 	<br>

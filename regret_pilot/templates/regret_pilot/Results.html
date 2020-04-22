@@ -2,12 +2,34 @@
 {% load otree static %}
 
 {% block title %}
-    Page title
+    Feedback
 {% endblock %}
 
 {% block content %}
+	<p><strong>Decision 1.</strong> The number picked by the computer was {{player.computer_1}}. The number x you chose was {{player_decision_1}}. </p>
 
-    {% next_button %}
+	{% if player.decision_1 >= player.computer_1 %}
+
+		Therefore you played the lottery. 
+
+			{% if player.lottery[0] == 1 %}
+
+				The lottery was successful, so you earned {}€. 
+
+				{% else %}
+
+				The lottery was not successful, so you earned 0.
+
+				{% endif %}
+
+	{% else %}
+
+	Therefore you earned 5€.
+
+	{% endif %}
+
+
+    
 {% endblock %}
 
 
