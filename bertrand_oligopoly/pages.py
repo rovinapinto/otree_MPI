@@ -16,6 +16,7 @@ class Decision(Page):
     form_fields = ['decision']
 
 class ResultsWaitPage(WaitPage):
+    wait_for_all_groups = True
     after_all_players_arrive = 'set_payoffs'
 
 class Period_Result(Page):
@@ -29,14 +30,20 @@ class Period_Result(Page):
             opponent_2_decision = opponent_2.decision,
             )
 
-#class Result_round(Page):
-    #pass
-    #def is_displayed(self):
-        #return self.round_number == [Constants.sub_rounds[i] for i in range(len(Constants.sub_rounds))] + 1
+class Result_round(Page):
+    def is_displayed(self):
+        if self.round_number == Constants.super_round_1:
+            return True
+        elif self.round_number == Constants.super_round_1 + Constants.super_round_2:
+            return True
+        elif self.round_number == Constants.super_round_1 + Constants.super_round_2 + Constants.super_round_3:
+            return True
+        else:
+            return False    
 
 class Results(Page):
     def is_displayed(self):
         return self.round_number == Constants.num_rounds
 
 
-page_sequence = [Introduction,Start,Decision, ResultsWaitPage, Period_Result, Results]
+page_sequence = [Introduction,Start,Decision, ResultsWaitPage, Period_Result, Result_round, Results]

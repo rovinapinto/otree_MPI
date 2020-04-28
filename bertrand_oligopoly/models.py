@@ -9,7 +9,7 @@ from otree.api import (
     currency_range,
 )
 #import random
-#import numpy as np
+import numpy as np
 
 author = 'Martin and Rovina'
 
@@ -24,35 +24,52 @@ Econometrica: Journal of the Econometric Society, 343-371."
 class Constants(BaseConstants):
     name_in_url = 'bertrand_oligopoly'
     players_per_group = 3
-    num_rounds = 6 #total number of rounds
-    sub_rounds = [2,4] #grouping after these rounds
-    #sub_rounds = np.array(sub_rounds)
-
+    
     instructions_template = 'bertrand/instructions.html'
 
     units = 24
     max_value = c(100)
     min_value = c(60)
 
+    inital_rounds = 2
+
+    extra_period_1 = 2
+    extra_period_2 = 1
+    extra_period_3 = 1
+
+    super_round_1 = inital_rounds + extra_period_1
+    super_round_2 = inital_rounds + extra_period_2
+    super_round_3 = inital_rounds + extra_period_3
+
+    num_rounds = super_round_1 + super_round_2 + super_round_3
+
 
 class Subsession(BaseSubsession):
     def creating_session(self):
-        for i in range(len(Constants.sub_rounds)): #np.arange(1,10,2) use arange!
-            if self.round_number == Constants.sub_rounds[i] + 1:
-                self.group_randomly()
-                print(self.get_group_matrix())
+        if self.round_number == (Constants.super_round_1 +1):
+            self.group_randomly()
+            print(self.get_group_matrix())
+        elif self.round_number > (Constants.super_round_1 +1) and self.round_number < (Constants.super_round_1 + Constants.super_round_2 +1):
+            self.group_like_round(Constants.super_round_1 +1)
+        elif self.round_number == (Constants.super_round_1 + Constants.super_round_2 +1):
+            self.group_randomly()
+            print(self.get_group_matrix())
+        elif self.round_number > (Constants.super_round_1 + Constants.super_round_2 +1):
+            self.group_like_round(Constants.super_round_1 + Constants.super_round_2 +1)
+        else:
+            self.group_like_round(1)    
 
+    def set_payoffs(self):
+        for p in self.get_players():
+            p.set_payoff()
 
-    #need to add extra periods ex ante but in next button conditionally?
     #computer cooperation
-    #random grouping - done except python modules not imported
+    #random grouping - test
     #random grouping with computer
 
 
 class Group(BaseGroup):
-    def set_payoffs(self):
-        for p in self.get_players():
-            p.set_payoff()
+    pass
 
 class Player(BasePlayer):
     decision = models.CurrencyField(
@@ -113,3 +130,6 @@ class Player(BasePlayer):
             else:
                 self.units_sold = (Constants.units/Constants.players_per_group)
         return self.units_sold
+
+    #sum of all the rounds in super_rounds 
+    #select a random super_round and display the sum of that   
