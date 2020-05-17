@@ -54,7 +54,7 @@ class Result_round(Page):
             }
         else:
             return {'round_payoff': None}
-        
+
 class Results(Page):
     def is_displayed(self):
         return self.round_number == Constants.num_rounds

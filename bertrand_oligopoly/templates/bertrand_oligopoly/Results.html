@@ -6,9 +6,9 @@
 {% endblock %}
 
 {% block content %}
-	<p>Darüber hinaus ist Runde ---- zufällig für die Auszahlung ausgewählt worden.</p>
+	<p>Darüber hinaus ist Runde {{player.round}} zufällig für die Auszahlung ausgewählt worden.</p>
     <br>
-    <p> Dort haben Sie ---- ECU.</p>
+    <p> Dort haben Sie {{player.final_payoff}} ECU.</p>
     {% next_button %}
 {% endblock %}
 

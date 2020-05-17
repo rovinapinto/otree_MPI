@@ -10,11 +10,12 @@ from otree.api import (
 )
 #import random
 import numpy as np
+import random
 
 author = 'Martin and Rovina'
 
 doc = """
-2 firms complete in a market by setting prices for homogenous goods.
+2 firms compete in a market by setting prices for homogenous goods.
 See "Kruse, J. B., Rassenti, S., Reynolds, S. S., & Smith, V. L. (1994).
 Bertrand-Edgeworth competition in experimental markets.
 Econometrica: Journal of the Econometric Society, 343-371."
@@ -43,7 +44,7 @@ class Constants(BaseConstants):
 
     num_rounds = super_round_1 + super_round_2 + super_round_3
 
-    #for html pages only
+    #for pages.py and final_payoff only
     round_2 = super_round_1 + super_round_2
     round_3 = super_round_1 + super_round_2 + super_round_3
 
@@ -137,3 +138,18 @@ class Player(BasePlayer):
 
 
     #select a random super_round and display the sum of that
+
+    def round(self):
+        self.round = random.randint(1, 3)
+        print (self.round) 
+        return self.round
+
+    def final_payoff(self):
+        p = self
+        if self.round == 1:
+            final_payoff = sum([p.payoff for p in p.in_rounds(1, Constants.super_round_1)])
+        elif self.round ==2:
+            final_payoff = sum([p.payoff for p in p.in_rounds((Constants.super_round_1+1), Constants.round_2)])
+        else:
+            final_payoff = sum([p.payoff for p in p.in_rounds((Constants.round_2+1), (Constants.round_3))])
+        return final_payoff    
