@@ -25,7 +25,7 @@ class Constants(BaseConstants):
     name_in_url = 'bertrand_oligopoly'
     players_per_group = 3
     
-    instructions_template = 'bertrand/instructions.html'
+    instructions_template = 'bertrand_oligopoly/Instructions.html'
 
     units = 24
     max_value = c(100)
@@ -42,6 +42,10 @@ class Constants(BaseConstants):
     super_round_3 = inital_rounds + extra_period_3
 
     num_rounds = super_round_1 + super_round_2 + super_round_3
+
+    #for html pages only
+    round_2 = super_round_1 + super_round_2
+    round_3 = super_round_1 + super_round_2 + super_round_3
 
 
 class Subsession(BaseSubsession):
@@ -64,7 +68,7 @@ class Subsession(BaseSubsession):
             p.set_payoff()
 
     #computer cooperation
-    #random grouping - test
+    #random grouping - test complete
     #random grouping with computer
 
 
@@ -131,5 +135,5 @@ class Player(BasePlayer):
                 self.units_sold = (Constants.units/Constants.players_per_group)
         return self.units_sold
 
-    #sum of all the rounds in super_rounds 
-    #select a random super_round and display the sum of that   
+
+    #select a random super_round and display the sum of that

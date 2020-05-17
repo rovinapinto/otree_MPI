@@ -39,8 +39,22 @@ class Result_round(Page):
         elif self.round_number == Constants.super_round_1 + Constants.super_round_2 + Constants.super_round_3:
             return True
         else:
-            return False    
+            return False 
 
+    def vars_for_template(self):
+        p = self.player
+        if self.round_number == Constants.super_round_1:
+            return {'round_payoff': sum([p.payoff for p in p.in_rounds(1, Constants.super_round_1)])
+            }
+        elif self.round_number == Constants.round_2:
+            return {'round_payoff': sum([p.payoff for p in p.in_rounds((Constants.super_round_1+1), Constants.round_2)])
+                }
+        elif self.round_number == Constants.round_3:
+            return {'round_payoff': sum([p.payoff for p in p.in_rounds((Constants.round_2+1), (Constants.round_3))])
+            }
+        else:
+            return {'round_payoff': None}
+        
 class Results(Page):
     def is_displayed(self):
         return self.round_number == Constants.num_rounds
