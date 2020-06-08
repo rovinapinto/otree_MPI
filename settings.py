@@ -59,7 +59,8 @@ SESSION_CONFIGS = [
     dict(
         name='bertrand_oligopoly',
         num_demo_participants=9,
-        app_sequence=['bertrand_oligopoly']
+        app_sequence=['bertrand_oligopoly'],
+        #use_browser_bots=True,
     ),
     dict(
         name='regret_pilot',
@@ -72,7 +73,14 @@ SESSION_CONFIGS = [
         app_sequence=['Market_app']
     ),
     dict(name='prisoner', display_name="Prisoner's Dilemma", num_demo_participants=2,
-      app_sequence=['prisoner', 'payment_info']),
+      app_sequence=['prisoner', 'payment_info']
+      ),
+    dict(
+        name='bertrand_oligopoly_bot',
+        num_demo_participants=6,
+        app_sequence=['bertrand_oligopoly_bot'],
+        #use_browser_bots=True,
+        ),
 ]
 
 

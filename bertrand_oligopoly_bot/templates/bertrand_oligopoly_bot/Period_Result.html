@@ -1,0 +1,24 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+    Zusammenfassung
+{% endblock %}
+
+{% block content %}
+
+    <p>
+        Sie haben Ihre Einheiten für {{ my_decision }} ECU angeboten
+        Unternehmen B hat seine Einheiten für {{ opponent_1_decision }} ECU angeboten.
+        Unternehmen C hat seine Einheiten für {{ player.bot_decision }} ECU angeboten.
+    </p>
+
+    <p>
+        Sie haben {{ player.payoff}} ECU verdient und {{player.units_sold}} Einheiten verkauft.
+    </p>
+
+    {% next_button %}
+
+
+{% endblock %}
+
