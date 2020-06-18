@@ -27,7 +27,7 @@ class Constants(BaseConstants):
     players_per_group = 2 # keep as it is for 2player + 1 bot game as it influences the grouping and shuffling
     team = 3 # 2players + 1bot --> only to calculate payoff and units sold
     
-    instructions_template = 'bertrand_oligopoly_bot/Instructions.html'
+    #instructions_template = 'bertrand_oligopoly_bot/Instructions.html'
 
     units = 24
     max_value = c(100)
@@ -68,111 +68,101 @@ class Subsession(BaseSubsession):
     def set_payoffs(self):
         for p in self.get_players():
             p.set_payoff()
-        print ("Is this running in subsession")
-
-    #computer cooperation
-    #random grouping with computer
-
 
 class Group(BaseGroup):
-    pass
+
+    def cooperate(self):
+        p1 = self.get_player_by_id(1) # id_in_group so same for each group in non-shuffled round
+        p2 = self.get_player_by_id(2) #but how do i know if id ==1 corresponds to this player and not the opponent?
+        if p1.decision == c(100) and p2.decision == c(100):
+            return (2)
+        elif p1.decision == c(60) and p2.decision == c(60):  
+            return (1)
+        else:
+            return (0)
+
+    def bot_decision(self):
+        choice = np.float64(np.random.choice([100,60],size=1, p = [0.5,0.5]))
+        #print("Choice made is ",choice)
+        if self.round_number == 1 or self.round_number == (Constants.super_round_1 + 1) or self.round_number == (Constants.super_round_1 + Constants.super_round_2 +1):
+            return 100 #plays high in the first period of each round
+        else:
+            if self.cooperate() == 2:
+                return 100 # cooperates if both players cooperate
+            elif self.cooperate() == 1:
+                return 60
+            else:
+                return  60 # either cooperates or defects with a probabilty of 1/2
+
     # previous decision: self.player.in_round(self.round_number - 1).decision
-    # call player and opponent: beware of shuffling groups
-    # prob of 1/2: random.choice([a], p= 0.5) or p = j/n-1 where j = no. of markets/players cooperate, n = no. of markets/players 
- 
+    # call player and opponent: beware of shuffling groups- just call the players in a group. Role: self or opponent does not matter here. Decsion of both does
+    # prob of 1/2: random.choice([a], p= [0.5]) or p = j/n-1 where j = no. of markets/players cooperate, n = no. of markets/players, p has to be same length as a 
+
 class Player(BasePlayer):
+
     decision = models.CurrencyField(
         choices=[60, 100]
         )
 
     def opponent_1(self):
-        return self.get_others_in_group()[0] 
-
-    def bot_decision(self):
-        if self.round_number == 1 or self.round_number == (Constants.super_round_1 + 1) or self.round_number == (Constants.super_round_1 + Constants.super_round_2 +1):
-            self.bot_decision = c(100)
-        else:
-            self.bot_decision = c(60)  
-        return self.bot_decision            
+        return self.get_others_in_group()[0]           
    
-
     def units_sold(self):
         opponent_1 = self.get_others_in_group()[0]
         #opponent_2 = self.get_others_in_group()[1]
+        bot_decision = self.group.bot_decision()
 
         if self.decision == c(100):
-            if opponent_1.decision == c(100) and self.bot_decision == c(100):
-                self.units_sold = (Constants.units/Constants.team)
+            if opponent_1.decision == c(100) and bot_decision == c(100):
+                return (Constants.units/Constants.team)
             else:
-                self.units_sold = 0
+                return 0
         else:
-            if opponent_1.decision == c(100) and self.bot_decision == c(100):
-                self.units_sold = Constants.units
-            elif opponent_1.decision == c(100) and self.bot_decision == c(60):
-                self.units_sold = (Constants.units/(Constants.team - 1))
-            elif opponent_1.decision == c(60) and self.bot_decision == c(100):
-                self.units_sold = (Constants.units/(Constants.team - 1))
+            if opponent_1.decision == c(100) and bot_decision == c(100):
+                return Constants.units
+            elif opponent_1.decision == c(100) and bot_decision == c(60):
+                return (Constants.units/(Constants.team - 1))
+            elif opponent_1.decision == c(60) and bot_decision == c(100):
+                return (Constants.units/(Constants.team - 1))
             else:
-                self.units_sold = (Constants.units/Constants.team)
-        return self.units_sold
+                return (Constants.units/Constants.team)
 
     def set_payoff(self):
         opponent_1 = self.get_others_in_group()[0]
-        #opponent_2 = self.get_others_in_group()[1]
-
+        bot_decision = self.group.bot_decision()
+        print(bot_decision)
         if self.decision == c(100):
-            if opponent_1.decision == c(100) and self.bot_decision == c(100):
-                self.payoff = (Constants.units/Constants.team)
+            if opponent_1.decision == c(100):
+                if bot_decision == 100:
+                    self.payoff = Constants.max_value * (Constants.units/Constants.team)
+                else:
+                    self.payoff = c(0)
             else:
                 self.payoff = c(0)
         else:
-            if opponent_1.decision == c(100) and self.bot_decision == c(100):
-                self.payoff = Constants.units
-            elif opponent_1.decision == c(100) and self.bot_decision == c(60):
-                self.payoff = (Constants.units/(Constants.team - 1))
-            elif opponent_1.decision == c(60) and self.bot_decision == c(100):
-                self.payoff = (Constants.units/(Constants.team - 1))
+            if opponent_1.decision == c(100):
+                if bot_decision == 100:
+                    self.payoff = Constants.min_value * Constants.units
+                else:
+                    self.payoff = Constants.min_value * (Constants.units/(Constants.team - 1))
             else:
-                self.payoff = (Constants.units/Constants.team)
-        print ("Is this running in player")        
+                if bot_decision == 100:
+                    self.payoff = Constants.min_value * (Constants.units/(Constants.team - 1))
+                else:
+                    self.payoff = Constants.min_value * (Constants.units / Constants.team)
         return self.payoff
         
 
     #select a random super_round and display the sum of that
 
     def round(self):
-        self.round = random.randint(1, 3)
-        print (self.round) 
-        return self.round
+        return random.randint(1, 3)
 
     def final_payoff(self):
         p = self
-        if self.round == 1:
-            final_payoff = sum([p.payoff for p in p.in_rounds(1, Constants.super_round_1)])
-        elif self.round ==2:
-            final_payoff = sum([p.payoff for p in p.in_rounds((Constants.super_round_1+1), Constants.round_2)])
+        if self.round() == 1:
+            return (sum([p.payoff for p in p.in_rounds(1, Constants.super_round_1)]))
+        elif self.round() ==2:
+            return (sum([p.payoff for p in p.in_rounds((Constants.super_round_1+1), Constants.round_2)]))
         else:
-            final_payoff = sum([p.payoff for p in p.in_rounds((Constants.round_2+1), (Constants.round_3))])
-        return final_payoff    
-'''
-    def cooperate(self):
-        p = self.get_player_by_id(1) # id_in_group so same for each group in non-shuffled round
-        opponent_1 = self.get_player_by_id(2) #but how do i know if id ==1 corresponds to this player and not the opponent?
-        if self.p.decision == c(100) and opponent_1.decision == c(100):
-            self.cooperate = 2
-        elif self.p.decision == c(60) and opponent_1.decision == c(60):  
-            self.cooperate = 1
-        else:
-            self.cooperate = 0
-
-    def bot_decision(self):
-        if self.round_number == 1 or self.round_number == (Constants.super_round_1 + 1) or self.round_number == (Constants.super_round_1 + Constants.super_round_2 +1):
-            self.bot_decision = c(100) #plays high in the first period of each round
-        else:
-            if self.cooperate == 2:
-                self.bot_decision = c(100) # cooperates if both players cooperate
-            if self.cooperate == 1:
-                self.bot_decision = c(60)
-            else:
-                self.bot_decision =  c(np.random.choice([100,60], p = 0.5))  # either cooperates or defects with a probabilty of 1/2
-'''
+            return (sum([p.payoff for p in p.in_rounds((Constants.round_2+1), (Constants.round_3))]))   
