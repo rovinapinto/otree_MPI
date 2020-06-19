@@ -82,7 +82,6 @@ class Group(BaseGroup):
             return (0)
 
     def bot_decision(self):
-        choice = np.float64(np.random.choice([100,60],size=1, p = [0.5,0.5]))
         #print("Choice made is ",choice)
         if self.round_number == 1 or self.round_number == (Constants.super_round_1 + 1) or self.round_number == (Constants.super_round_1 + Constants.super_round_2 +1):
             return 100 #plays high in the first period of each round
@@ -92,7 +91,7 @@ class Group(BaseGroup):
             elif self.cooperate() == 1:
                 return 60
             else:
-                return  60 # either cooperates or defects with a probabilty of 1/2
+                return (np.float64(np.random.choice([100,60],size=1, p = [0.5,0.5]))) # either cooperates or defects with a probabilty of 1/2
 
     # previous decision: self.player.in_round(self.round_number - 1).decision
     # call player and opponent: beware of shuffling groups- just call the players in a group. Role: self or opponent does not matter here. Decsion of both does
