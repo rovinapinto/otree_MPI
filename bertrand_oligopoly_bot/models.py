@@ -8,7 +8,6 @@ from otree.api import (
     Currency as c,
     currency_range,
 )
-#import random
 import numpy as np
 import random
 
@@ -51,7 +50,7 @@ class Constants(BaseConstants):
 
 
 class Subsession(BaseSubsession):
-    def creating_session(self):
+    def creating_session(self): #random grouping at the beginning of each super_round
         if self.round_number == (Constants.super_round_1 +1):
             self.group_randomly()
             print(self.get_group_matrix())
@@ -63,35 +62,33 @@ class Subsession(BaseSubsession):
         elif self.round_number > (Constants.super_round_1 + Constants.super_round_2 +1):
             self.group_like_round(Constants.super_round_1 + Constants.super_round_2 +1)
         else:
-            self.group_like_round(1)    
+            self.group_like_round(1)  
+
+        for g in self.get_groups(): #generating random number for each group in the beginning of each round
+            g.prob = np.int_(random.choices([100,60],k=1, weights = [0.5,0.5])) 
 
     def set_payoffs(self):
         for p in self.get_players():
             p.set_payoff()
 
-class Group(BaseGroup):
+class Group(BaseGroup): 
 
-    def cooperate(self):
-        p1 = self.get_player_by_id(1) # id_in_group so same for each group in non-shuffled round
-        p2 = self.get_player_by_id(2) #but how do i know if id ==1 corresponds to this player and not the opponent?
-        if p1.decision == c(100) and p2.decision == c(100):
-            return (2)
-        elif p1.decision == c(60) and p2.decision == c(60):  
-            return (1)
-        else:
-            return (0)
+    prob = models.IntegerField(
+        choices = [100,60]
+        )
 
     def bot_decision(self):
-        #print("Choice made is ",choice)
+        p1 = self.get_player_by_id(1)
+        p2 = self.get_player_by_id(2)
         if self.round_number == 1 or self.round_number == (Constants.super_round_1 + 1) or self.round_number == (Constants.super_round_1 + Constants.super_round_2 +1):
             return 100 #plays high in the first period of each round
         else:
-            if self.cooperate() == 2:
+            if p1.decision == c(100) and p2.decision == c(100):
                 return 100 # cooperates if both players cooperate
-            elif self.cooperate() == 1:
+            elif p1.decision == c(60) and p2.decision == c(60):
                 return 60
             else:
-                return (np.float64(np.random.choice([100,60],size=1, p = [0.5,0.5]))) # either cooperates or defects with a probabilty of 1/2
+                return self.prob # either cooperates or defects with a probabilty of 1/2
 
     # previous decision: self.player.in_round(self.round_number - 1).decision
     # call player and opponent: beware of shuffling groups- just call the players in a group. Role: self or opponent does not matter here. Decsion of both does
@@ -129,7 +126,6 @@ class Player(BasePlayer):
     def set_payoff(self):
         opponent_1 = self.get_others_in_group()[0]
         bot_decision = self.group.bot_decision()
-        print(bot_decision)
         if self.decision == c(100):
             if opponent_1.decision == c(100):
                 if bot_decision == 100:
