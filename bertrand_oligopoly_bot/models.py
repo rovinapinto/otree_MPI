@@ -49,8 +49,8 @@ class Constants(BaseConstants):
     round_3 = super_round_1 + super_round_2 + super_round_3
 
 
-class Subsession(BaseSubsession):
-    def creating_session(self): #random grouping at the beginning of each super_round
+class Subsession(BaseSubsession): #executes the functions at the start of the session ie for all rounds at once
+    def creating_session(self): #random grouping for each super_round
         if self.round_number == (Constants.super_round_1 +1):
             self.group_randomly()
             print(self.get_group_matrix())
@@ -64,7 +64,7 @@ class Subsession(BaseSubsession):
         else:
             self.group_like_round(1)  
 
-        for g in self.get_groups(): #generating random number for each group in the beginning of each round
+        for g in self.get_groups(): #generating random number for each group 
             g.prob = np.int_(random.choices([100,60],k=1, weights = [0.5,0.5])) 
 
     def set_payoffs(self):
@@ -83,9 +83,9 @@ class Group(BaseGroup):
         if self.round_number == 1 or self.round_number == (Constants.super_round_1 + 1) or self.round_number == (Constants.super_round_1 + Constants.super_round_2 +1):
             return 100 #plays high in the first period of each round
         else:
-            if p1.decision == c(100) and p2.decision == c(100):
+            if p1.in_round(self.round_number - 1).decision == c(100) and p2.in_round(self.round_number - 1).decision == c(100):
                 return 100 # cooperates if both players cooperate
-            elif p1.decision == c(60) and p2.decision == c(60):
+            elif p1.in_round(self.round_number - 1).decision == c(60) and p2.in_round(self.round_number - 1).decision == c(60):
                 return 60
             else:
                 return self.prob # either cooperates or defects with a probabilty of 1/2
