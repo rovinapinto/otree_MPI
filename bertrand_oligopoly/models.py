@@ -23,7 +23,7 @@ Econometrica: Journal of the Econometric Society, 343-371."
 
 
 class Constants(BaseConstants):
-    name_in_url = 'bertrand_oligopoly'
+    name_in_url = 'marketgame'
     players_per_group = 3
     
     instructions_template = 'bertrand_oligopoly/Instructions.html'
