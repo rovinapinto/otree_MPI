@@ -98,7 +98,7 @@ class Player(BasePlayer):
 
         if self.decision == c(100):
             if opponent_1.decision == c(100) and opponent_2.decision == c(100) and opponent_3.decision == c(100):
-				self.payoff = Constants.max_value * (Constants.units/Constants.players_per_group)
+                self.payoff = Constants.max_value * (Constants.units/Constants.players_per_group)
             else:
                 self.payoff = c(0)
         else:
@@ -137,24 +137,24 @@ class Player(BasePlayer):
         else:
             if opponent_1.decision == c(100) and opponent_2.decision == c(100):
                 if opponent_3.decision == c(100):
-                    return Constants.min_value * Constants.units
+                    return Constants.units
                 else:
-                    return Constants.min_value * (Constants.units/(Constants.players_per_group - 2))
+                    return (Constants.units/(Constants.players_per_group - 2))
             elif opponent_1.decision == c(100) and opponent_2.decision == c(60):
                 if opponent_3.decision == c(100):
-                    return Constants.min_value * (Constants.units/(Constants.players_per_group - 2))
+                    return (Constants.units/(Constants.players_per_group - 2))
                 else:
-                    return Constants.min_value * (Constants.units/(Constants.players_per_group - 1))
+                    return (Constants.units/(Constants.players_per_group - 1))
             elif opponent_1.decision == c(60) and opponent_2.decision == c(100):
                 if opponent_3.decision == c(100):
-                    return Constants.min_value * (Constants.units/(Constants.players_per_group - 2))
+                    return (Constants.units/(Constants.players_per_group - 2))
                 else:
-                    return Constants.min_value * (Constants.units/(Constants.players_per_group - 1))
+                    return (Constants.units/(Constants.players_per_group - 1))
             else:
                 if opponent_3.decision == c(100):
-                    return Constants.min_value * (Constants.units/Constants.players_per_group - 1)
+                    return (Constants.units/Constants.players_per_group - 1)
                 else:
-                    return Constants.min_value * (Constants.units/Constants.players_per_group)
+                    return (Constants.units/Constants.players_per_group)
 
 
     #select a random super_round and display the sum of that

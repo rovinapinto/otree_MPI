@@ -81,6 +81,12 @@ SESSION_CONFIGS = [
         app_sequence=['bertrand_oligopoly_bot'],
         #use_browser_bots=True,
         ),
+    dict(
+        name='bertrand_t4',
+        num_demo_participants=8,
+        app_sequence=['bertrand_t4'],
+        #use_browser_bots=True,
+        ),
 ]
 
 
