@@ -87,6 +87,18 @@ SESSION_CONFIGS = [
         app_sequence=['bertrand_t4'],
         #use_browser_bots=True,
         ),
+    dict(
+        name='bertrand_t4_bot',
+        num_demo_participants=9,
+        app_sequence=['bertrand_t4_bot'],
+        #use_browser_bots=True,
+        ),
+    dict(
+        name='demographics',
+        num_demo_participants=1,
+        app_sequence=['demographics'],
+        #use_browser_bots=True,
+        ),
 ]
 
 
