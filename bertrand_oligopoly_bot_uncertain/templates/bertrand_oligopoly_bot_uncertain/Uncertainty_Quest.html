@@ -1,0 +1,23 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+
+{% block title %}
+ Herzlich Willkommen zum Experiment
+{% endblock %}
+
+{% block content %}
+
+<p> Zusätzlich zu 
+
+{% formfield player.certainty_quest %}
+
+
+    {% next_button %}
+
+
+
+
+{% endblock %}
+
+

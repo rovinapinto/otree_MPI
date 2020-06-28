@@ -1,0 +1,27 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+
+{% block title %}
+ Herzlich Willkommen zum Experiment
+{% endblock %}
+
+{% block content %}
+
+<p> <strong>Bitte lesen Sie sich zunächst aufmerksam die Instruktionen (siehe unten) durch und beantworten Sie im Anschluss die folgenden Verständnisfragen. Abschließend klicken Sie bitte auf Weiter. </strong>  </p>
+
+{% formfield player.control_1 %}
+{% formfield player.control_2 %}
+{% formfield player.control_3 %}
+{% formfield player.control_4 %}
+
+
+
+    {% next_button %}
+
+{% include Constants.instructions_template %}
+
+
+{% endblock %}
+
+
