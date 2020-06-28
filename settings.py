@@ -59,7 +59,7 @@ SESSION_CONFIGS = [
     dict(
         name='bertrand_oligopoly',
         num_demo_participants=9,
-        app_sequence=['bertrand_oligopoly'],
+        app_sequence=['bertrand_oligopoly','demographics'],
         #use_browser_bots=True,
     ),
     dict(
@@ -78,19 +78,19 @@ SESSION_CONFIGS = [
     dict(
         name='bertrand_oligopoly_bot',
         num_demo_participants=6,
-        app_sequence=['bertrand_oligopoly_bot'],
+        app_sequence=['bertrand_oligopoly_bot', 'demographics'],
         #use_browser_bots=True,
         ),
     dict(
         name='bertrand_t4',
         num_demo_participants=8,
-        app_sequence=['bertrand_t4'],
+        app_sequence=['bertrand_t4', 'demographics'],
         #use_browser_bots=True,
         ),
     dict(
         name='bertrand_t4_bot',
         num_demo_participants=9,
-        app_sequence=['bertrand_t4_bot'],
+        app_sequence=['bertrand_t4_bot', 'demographics'],
         #use_browser_bots=True,
         ),
     dict(
