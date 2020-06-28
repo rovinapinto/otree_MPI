@@ -15,6 +15,7 @@ import random
 author = 'Martin and Rovina'
 
 doc = """
+Treatment with 4 players.
 2 firms compete in a market by setting prices for homogenous goods.
 See "Kruse, J. B., Rassenti, S., Reynolds, S. S., & Smith, V. L. (1994).
 Bertrand-Edgeworth competition in experimental markets.
@@ -23,10 +24,10 @@ Econometrica: Journal of the Econometric Society, 343-371."
 
 
 class Constants(BaseConstants):
-    name_in_url = 'marketgame'
-    players_per_group = 3
+    name_in_url = 'bertrand_oligopoly_4player'
+    players_per_group = 4
     
-    instructions_template = 'bertrand_oligopoly/Instructions.html'
+    instructions_template = 'bertrand_t4/Instructions.html'
 
     units = 24
     max_value = c(100)
@@ -86,70 +87,87 @@ class Player(BasePlayer):
     def opponent_1(self):
         return self.get_others_in_group()[0]
     def opponent_2(self):
-        return self.get_others_in_group()[1]      
+        return self.get_others_in_group()[1]
+    def opponent_3(self):
+        return self.get_others_in_group()[2]      
 
     def set_payoff(self):
         opponent_1 = self.get_others_in_group()[0]
         opponent_2 = self.get_others_in_group()[1]
+        opponent_3 = self.get_others_in_group()[2]
 
         if self.decision == c(100):
-            if opponent_1.decision == c(100) and opponent_2.decision == c(100):
-                self.payoff = Constants.max_value * (Constants.units/Constants.players_per_group)
-            elif opponent_1.decision == c(100) and opponent_2.decision == c(60):
-                self.payoff = c(0)
-            elif opponent_1.decision == c(60) and opponent_2.decision == c(100):
-                self.payoff = c(0)
+            if opponent_1.decision == c(100) and opponent_2.decision == c(100) and opponent_3.decision == c(100):
+				self.payoff = Constants.max_value * (Constants.units/Constants.players_per_group)
             else:
                 self.payoff = c(0)
         else:
             if opponent_1.decision == c(100) and opponent_2.decision == c(100):
-                self.payoff = Constants.min_value * Constants.units
+                if opponent_3.decision == c(100):
+                    self.payoff = Constants.min_value * Constants.units
+                else:
+                    self.payoff = Constants.min_value * (Constants.units/(Constants.players_per_group - 2))
             elif opponent_1.decision == c(100) and opponent_2.decision == c(60):
-                self.payoff = Constants.min_value * (Constants.units/(Constants.players_per_group - 1))
+                if opponent_3.decision == c(100):
+                    self.payoff = Constants.min_value * (Constants.units/(Constants.players_per_group - 2))
+                else:
+                    self.payoff = Constants.min_value * (Constants.units/(Constants.players_per_group - 1))
             elif opponent_1.decision == c(60) and opponent_2.decision == c(100):
-                self.payoff = Constants.min_value * (Constants.units/(Constants.players_per_group - 1))
+                if opponent_3.decision == c(100):
+                    self.payoff = Constants.min_value * (Constants.units/(Constants.players_per_group - 2))
+                else:
+                    self.payoff = Constants.min_value * (Constants.units/(Constants.players_per_group - 1))
             else:
-                self.payoff = Constants.min_value * (Constants.units/Constants.players_per_group)
+                if opponent_3.decision == c(100):
+                    self.payoff = Constants.min_value * (Constants.units/Constants.players_per_group - 1)
+                else:
+                    self.payoff = Constants.min_value * (Constants.units/Constants.players_per_group)
         return self.payoff    
 
     def units_sold(self):
         opponent_1 = self.get_others_in_group()[0]
         opponent_2 = self.get_others_in_group()[1]
+        opponent_3 = self.get_others_in_group()[2]
 
         if self.decision == c(100):
-            if opponent_1.decision == c(100) and opponent_2.decision == c(100):
-                self.units_sold = (Constants.units/Constants.players_per_group)
-            elif opponent_1.decision == c(100) and opponent_2.decision == c(60):
-                self.units_sold = 0
-            elif opponent_1.decision == c(60) and opponent_2.decision == c(100):
-                self.units_sold = 0
+            if opponent_1.decision == c(100) and opponent_2.decision == c(100) and opponent_3.decision == c(100):
+                return (Constants.units/Constants.players_per_group)
             else:
-                self.units_sold = 0
+                return 0
         else:
             if opponent_1.decision == c(100) and opponent_2.decision == c(100):
-                self.units_sold = Constants.units
+                if opponent_3.decision == c(100):
+                    return Constants.min_value * Constants.units
+                else:
+                    return Constants.min_value * (Constants.units/(Constants.players_per_group - 2))
             elif opponent_1.decision == c(100) and opponent_2.decision == c(60):
-                self.units_sold = (Constants.units/(Constants.players_per_group - 1))
+                if opponent_3.decision == c(100):
+                    return Constants.min_value * (Constants.units/(Constants.players_per_group - 2))
+                else:
+                    return Constants.min_value * (Constants.units/(Constants.players_per_group - 1))
             elif opponent_1.decision == c(60) and opponent_2.decision == c(100):
-                self.units_sold = (Constants.units/(Constants.players_per_group - 1))
+                if opponent_3.decision == c(100):
+                    return Constants.min_value * (Constants.units/(Constants.players_per_group - 2))
+                else:
+                    return Constants.min_value * (Constants.units/(Constants.players_per_group - 1))
             else:
-                self.units_sold = (Constants.units/Constants.players_per_group)
-        return self.units_sold
+                if opponent_3.decision == c(100):
+                    return Constants.min_value * (Constants.units/Constants.players_per_group - 1)
+                else:
+                    return Constants.min_value * (Constants.units/Constants.players_per_group)
 
 
     #select a random super_round and display the sum of that
 
     def round(self):
-        self.round = random.randint(1, 3)
-        print (self.round) 
-        return self.round
+        return random.randint(1, 3)
 
     def final_payoff(self):
         p = self
-        if self.round == 1:
-            final_payoff = sum([p.payoff for p in p.in_rounds(1, Constants.super_round_1)])
+        if self.round() == 1:
+            return sum([p.payoff for p in p.in_rounds(1, Constants.super_round_1)])
         elif self.round ==2:
-            final_payoff = sum([p.payoff for p in p.in_rounds((Constants.super_round_1+1), Constants.round_2)])
+            return sum([p.payoff for p in p.in_rounds((Constants.super_round_1+1), Constants.round_2)])
         else:
-            final_payoff = sum([p.payoff for p in p.in_rounds((Constants.round_2+1), (Constants.round_3))])
-        return final_payoff    
+            return sum([p.payoff for p in p.in_rounds((Constants.round_2+1), (Constants.round_3))])    
+
