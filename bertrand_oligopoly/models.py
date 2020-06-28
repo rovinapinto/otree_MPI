@@ -118,38 +118,34 @@ class Player(BasePlayer):
 
         if self.decision == c(100):
             if opponent_1.decision == c(100) and opponent_2.decision == c(100):
-                self.units_sold = (Constants.units/Constants.players_per_group)
+                return (Constants.units/Constants.players_per_group)
             elif opponent_1.decision == c(100) and opponent_2.decision == c(60):
-                self.units_sold = 0
+                return 0
             elif opponent_1.decision == c(60) and opponent_2.decision == c(100):
-                self.units_sold = 0
+                return 0
             else:
-                self.units_sold = 0
+                return 0
         else:
             if opponent_1.decision == c(100) and opponent_2.decision == c(100):
-                self.units_sold = Constants.units
+                return Constants.units
             elif opponent_1.decision == c(100) and opponent_2.decision == c(60):
-                self.units_sold = (Constants.units/(Constants.players_per_group - 1))
+                return (Constants.units/(Constants.players_per_group - 1))
             elif opponent_1.decision == c(60) and opponent_2.decision == c(100):
-                self.units_sold = (Constants.units/(Constants.players_per_group - 1))
+                return (Constants.units/(Constants.players_per_group - 1))
             else:
-                self.units_sold = (Constants.units/Constants.players_per_group)
-        return self.units_sold
+                return (Constants.units/Constants.players_per_group)
 
 
     #select a random super_round and display the sum of that
 
     def round(self):
-        self.round = random.randint(1, 3)
-        print (self.round) 
-        return self.round
+        return random.randint(1, 3)
 
     def final_payoff(self):
         p = self
-        if self.round == 1:
-            final_payoff = sum([p.payoff for p in p.in_rounds(1, Constants.super_round_1)])
+        if self.round() == 1:
+            return sum([p.payoff for p in p.in_rounds(1, Constants.super_round_1)])
         elif self.round ==2:
-            final_payoff = sum([p.payoff for p in p.in_rounds((Constants.super_round_1+1), Constants.round_2)])
+            return sum([p.payoff for p in p.in_rounds((Constants.super_round_1+1), Constants.round_2)])
         else:
-            final_payoff = sum([p.payoff for p in p.in_rounds((Constants.round_2+1), (Constants.round_3))])
-        return final_payoff    
+            return sum([p.payoff for p in p.in_rounds((Constants.round_2+1), (Constants.round_3))])   
