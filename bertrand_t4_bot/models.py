@@ -54,10 +54,12 @@ class Subsession(BaseSubsession): #executes the functions at the start of the se
     def creating_session(self): #random grouping for each super_round
         if self.round_number == (Constants.super_round_1 +1):
             self.group_randomly()
+            print(self.get_group_matrix())
         elif self.round_number > (Constants.super_round_1 +1) and self.round_number < (Constants.super_round_1 + Constants.super_round_2 +1):
             self.group_like_round(Constants.super_round_1 +1)
         elif self.round_number == (Constants.super_round_1 + Constants.super_round_2 +1):
             self.group_randomly()
+            print(self.get_group_matrix())
         elif self.round_number > (Constants.super_round_1 + Constants.super_round_2 +1):
             self.group_like_round(Constants.super_round_1 + Constants.super_round_2 +1)
         else:
@@ -89,8 +91,8 @@ class Group(BaseGroup):
         choices_made.append(p1.in_round(self.round_number - 1).decision)
         choices_made.append(p2.in_round(self.round_number - 1).decision)
         choices_made.append(p3.in_round(self.round_number - 1).decision)
-        print (choices_made)
-        print (choices_made.count(100))
+        print(choices_made)
+        print(choices_made.count(100))
 
         return choices_made.count(100)
 
@@ -98,11 +100,11 @@ class Group(BaseGroup):
         if self.round_number == 1 or self.round_number == (Constants.super_round_1 + 1) or self.round_number == (Constants.super_round_1 + Constants.super_round_2 +1):
             return 100 #plays high in the first period of each round
         else:
-            if self.count == 3:
+            if self.count() == 3:
                 return 100 # cooperates if all 3 players cooperate
-            elif self.count == 0:
+            elif self.count() == 0:
                 return 60
-            elif self.count == 2:
+            elif self.count ()== 2:
                 return self.prob_high
             else:
                 return self.prob_low 
@@ -130,7 +132,7 @@ class Player(BasePlayer):
 
         if self.decision == c(100):
             if opponent_1.decision == c(100) and opponent_2.decision == c(100) and bot_decision == c(100):
-                return (Constants.units/Constants.players_per_group)
+                return (Constants.units/team)
             else:
                 return 0
         else:
@@ -138,22 +140,22 @@ class Player(BasePlayer):
                 if bot_decision == c(100):
                     return Constants.units
                 else:
-                    return (Constants.units/(Constants.players_per_group - 2))
+                    return (Constants.units/(Constants.team - 2))
             elif opponent_1.decision == c(100) and opponent_2.decision == c(60):
                 if bot_decision == c(100):
-                    return (Constants.units/(Constants.players_per_group - 2))
+                    return (Constants.units/(Constants.team - 2))
                 else:
-                    return (Constants.units/(Constants.players_per_group - 1))
+                    return (Constants.units/(Constants.team - 1))
             elif opponent_1.decision == c(60) and opponent_2.decision == c(100):
                 if bot_decision == c(100):
-                    return (Constants.units/(Constants.players_per_group - 2))
+                    return (Constants.units/(Constants.team - 2))
                 else:
-                    return (Constants.units/(Constants.players_per_group - 1))
+                    return (Constants.units/(Constants.team - 1))
             else:
                 if bot_decision == c(100):
-                    return (Constants.units/Constants.players_per_group - 1)
+                    return (Constants.units/Constants.team - 1)
                 else:
-                    return (Constants.units/Constants.players_per_group)
+                    return (Constants.units/Constants.team)
         
     def set_payoff(self):
         opponent_1 = self.get_others_in_group()[0]
@@ -162,7 +164,7 @@ class Player(BasePlayer):
 
         if self.decision == c(100):
             if opponent_1.decision == c(100) and opponent_2.decision == c(100) and bot_decision == c(100):
-                self.payoff = Constants.max_value * (Constants.units/Constants.players_per_group)
+                self.payoff = Constants.max_value * (Constants.units/Constants.team)
             else:
                 self.payoff = c(0)
         else:
@@ -170,22 +172,22 @@ class Player(BasePlayer):
                 if bot_decision == c(100):
                     self.payoff = Constants.min_value * Constants.units
                 else:
-                    self.payoff = Constants.min_value * (Constants.units/(Constants.players_per_group - 2))
+                    self.payoff = Constants.min_value * (Constants.units/(Constants.team - 2))
             elif opponent_1.decision == c(100) and opponent_2.decision == c(60):
                 if bot_decision == c(100):
-                    self.payoff = Constants.min_value * (Constants.units/(Constants.players_per_group - 2))
+                    self.payoff = Constants.min_value * (Constants.units/(Constants.team - 2))
                 else:
-                    self.payoff = Constants.min_value * (Constants.units/(Constants.players_per_group - 1))
+                    self.payoff = Constants.min_value * (Constants.units/(Constants.team - 1))
             elif opponent_1.decision == c(60) and opponent_2.decision == c(100):
                 if bot_decision == c(100):
-                    self.payoff = Constants.min_value * (Constants.units/(Constants.players_per_group - 2))
+                    self.payoff = Constants.min_value * (Constants.units/(Constants.team - 2))
                 else:
-                    self.payoff = Constants.min_value * (Constants.units/(Constants.players_per_group - 1))
+                    self.payoff = Constants.min_value * (Constants.units/(Constants.team - 1))
             else:
                 if bot_decision == c(100):
-                    self.payoff = Constants.min_value * (Constants.units/Constants.players_per_group - 1)
+                    self.payoff = Constants.min_value * (Constants.units/Constants.team - 1)
                 else:
-                    self.payoff = Constants.min_value * (Constants.units/Constants.players_per_group)
+                    self.payoff = Constants.min_value * (Constants.units/Constants.team)
         return self.payoff
         
 
