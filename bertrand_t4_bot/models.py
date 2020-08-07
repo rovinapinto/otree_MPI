@@ -104,7 +104,7 @@ class Group(BaseGroup):
                 return 100 # cooperates if all 3 players cooperate
             elif self.count() == 0:
                 return 60
-            elif self.count ()== 2:
+            elif self.count()== 2:
                 return self.prob_high
             else:
                 return self.prob_low 
@@ -132,7 +132,7 @@ class Player(BasePlayer):
 
         if self.decision == c(100):
             if opponent_1.decision == c(100) and opponent_2.decision == c(100) and bot_decision == c(100):
-                return (Constants.units/team)
+                return (Constants.units/Constants.team)
             else:
                 return 0
         else:
@@ -153,7 +153,7 @@ class Player(BasePlayer):
                     return (Constants.units/(Constants.team - 1))
             else:
                 if bot_decision == c(100):
-                    return (Constants.units/Constants.team - 1)
+                    return (Constants.units/(Constants.team - 1))
                 else:
                     return (Constants.units/Constants.team)
         
@@ -185,7 +185,7 @@ class Player(BasePlayer):
                     self.payoff = Constants.min_value * (Constants.units/(Constants.team - 1))
             else:
                 if bot_decision == c(100):
-                    self.payoff = Constants.min_value * (Constants.units/Constants.team - 1)
+                    self.payoff = Constants.min_value * (Constants.units/(Constants.team - 1))
                 else:
                     self.payoff = Constants.min_value * (Constants.units/Constants.team)
         return self.payoff

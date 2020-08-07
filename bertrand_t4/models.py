@@ -119,7 +119,7 @@ class Player(BasePlayer):
                     self.payoff = Constants.min_value * (Constants.units/(Constants.players_per_group - 1))
             else:
                 if opponent_3.decision == c(100):
-                    self.payoff = Constants.min_value * (Constants.units/Constants.players_per_group - 1)
+                    self.payoff = Constants.min_value * (Constants.units/(Constants.players_per_group - 1))
                 else:
                     self.payoff = Constants.min_value * (Constants.units/Constants.players_per_group)
         return self.payoff    
@@ -152,7 +152,7 @@ class Player(BasePlayer):
                     return (Constants.units/(Constants.players_per_group - 1))
             else:
                 if opponent_3.decision == c(100):
-                    return (Constants.units/Constants.players_per_group - 1)
+                    return (Constants.units/(Constants.players_per_group - 1))
                 else:
                     return (Constants.units/Constants.players_per_group)
 
