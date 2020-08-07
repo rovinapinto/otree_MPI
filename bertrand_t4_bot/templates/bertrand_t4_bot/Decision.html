@@ -1,0 +1,26 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+    Entscheide dich!
+{% endblock %}
+
+{% block content %}
+
+    <div> 
+    	<p>Sie haben 24 Einheiten des Gutes X produziert. Hierbei sind Ihnen keine Kosten entstanden. </p>
+
+		<p>	Möchten Sie Ihre Einheiten zu einem hohen oder einem niedrigen Preis anbieten? </p>
+	</div>	
+	
+    <div class="form-group required">
+
+                <button name="decision" value= 100 class="btn btn-primary btn-large" style="margin:5px;"> Hoher Preis (100)</button>
+      
+                <button name="decision" value= 60 class="btn btn-primary btn-large" style="margin:5px;"> Niedriger Preis (60)</button>
+    </div>
+
+
+{% endblock %}
+
+
