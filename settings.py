@@ -6,29 +6,11 @@ from os import environ
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
+    real_world_currency_per_point=0.01, participation_fee=4.00, doc=""
 )
 
 
 SESSION_CONFIGS = [
-    dict(
-        name='public_goods',
-        display_name="Public Goods",
-        num_demo_participants=3,
-        app_sequence=['public_goods', 'payment_info'],
-    ),
-    dict(
-        name='guess_two_thirds',
-        display_name="Guess 2/3 of the Average",
-        num_demo_participants=3,
-        app_sequence=['guess_two_thirds', 'payment_info'],
-    ),
-    dict(
-        name='survey',
-        display_name='survey',
-        num_demo_participants=1,
-        app_sequence=['survey', 'payment_info'],
-    ),
     dict(
         name='my_simple_survey',
         num_demo_participants=3,
@@ -99,6 +81,12 @@ SESSION_CONFIGS = [
         app_sequence=['demographics'],
         #use_browser_bots=True,
         ),
+    dict(
+        name='uncertain',
+        num_demo_participants=1,
+        app_sequence=['uncertain'],
+        #use_browser_bots=True,
+        ),
 ]
 
 
@@ -107,8 +95,9 @@ SESSION_CONFIGS = [
 LANGUAGE_CODE = 'en'
 
 # e.g. EUR, GBP, CNY, JPY
-REAL_WORLD_CURRENCY_CODE = 'USD'
+REAL_WORLD_CURRENCY_CODE = 'EUR'
 USE_POINTS = True
+#POINTS_CUSTOM_NAME = 'whatever' #already in  ECU so no need to specify unless changing to credits etc
 
 ROOMS = [
     dict(

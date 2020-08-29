@@ -1,0 +1,145 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+Zusatzfrage
+{% endblock %}
+
+{% block content %}
+
+<p> <h5> Wie sicher sind Sie sich, dass je ein/e Teilnehmer/in in Ihren Märkten durch einen Algorithmus unterstützt wurde?</h5></p>
+
+<p> Zusätzlich zu Ihrer bisherigen Auszahlung, können Sie mit der Beantwortung dieser Frage bis zu 2 Euro verdienen. Durch das Verschieben des Reglers werden Ihnen die möglichen Auszahlungen angezeigt.
+
+
+</div>
+
+<div class="slidecontainer">
+      <input type="range" min="0" max="100" value="50" class="slider" id="n1" onchange = "calc(),calc2()"/><br/><br/>
+    </div>
+        <p><strong> Ihre Auswahl: <span id="demo" ></span></strong> </p>
+
+<div class="row">
+  <div class="column" >
+<p> Wenn je ein/e Teimnehmer/in mit einem Algorithmus</p>
+<p> ausgestattet war, erhalten Sie:</p>
+     <p> <input type="text" name="bot" placeholder="--" id="result" readonly="readonly" /> Euro </p>
+        </div>
+    <div class="column">
+<p> Wenn kein/e Teilnehmer/innen mit einem Algorithmus</p>
+<p> ausgestattet war, erhalten Sie:</p>
+       <p> <input type="text" name="no_bot" placeholder= "--" id="result2" readonly="readonly"/> Euro </p>
+        <input type="hidden" name="n1" id="id_n1"/>
+        <input type="hidden" name="payoff_quest" id="payoff_quest"/>
+         </div>
+</div>
+
+
+        <script>
+
+            var slider = document.getElementById("n1");
+            var output = document.getElementById("demo");
+
+            slider.oninput = function() {
+              output.innerHTML = this.value;
+                };
+
+            function calc()
+            {
+                var n1 = parseFloat(document.getElementById('n1').value);
+                var n2 = (1+(n1/100)*(n1/100)-(1+n1/100)*(1+n1/100))*(-1);
+                var n3 = n2.toFixed(2)
+
+                    document.getElementById('result').value = n3;
+                    document.getElementById("id_n1"). value = n1;
+                    document.getElementById('payoff_quest').value = n3;
+            }
+  function calc2()
+            {
+                var n1 = parseFloat(document.getElementById('n1').value);
+                var n4 = 1+(1-n1/100)*(1-n1/100)-(0-n1/100)*(0-n1/100);
+                var n5 = n4.toFixed(2)
+                document.getElementById('result2').value = n5;
+            }
+
+
+        </script>
+
+<style>
+input {
+  width: 45px;
+};
+
+.slidecontainer {
+  width: 100%;
+    width: 100%;
+  padding: 12px 20px;
+  margin: 12px 12px;
+  box-sizing: border-box;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 35%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 35%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+ {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 80%;
+  };
+
+</style>
+
+<br>
+<br>
+    {% next_button %}
+
+{% endblock %}

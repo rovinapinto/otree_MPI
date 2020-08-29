@@ -1,0 +1,14 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Results
+{% endblock %}
+
+{% block content %}
+	<p> Dort haben Sie {{player.payoff_quest}} EUR.</p>
+
+    {% next_button %}
+{% endblock %}
+
+

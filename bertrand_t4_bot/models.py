@@ -23,6 +23,7 @@ Econometrica: Journal of the Econometric Society, 343-371."
 
 
 class Constants(BaseConstants):
+
     name_in_url = 'bertrand_t4_bot'
     players_per_group = 3 # keep as it is for 3 player + 1 bot game as it influences the grouping and shuffling
     team = 4 # 2players + 1bot --> only to calculate payoff and units sold
@@ -51,7 +52,11 @@ class Constants(BaseConstants):
 
 
 class Subsession(BaseSubsession): #executes the functions at the start of the session ie for all rounds at once
-    def creating_session(self): #random grouping for each super_round
+    def creating_session(self): #random grouping for each super_round    
+        for p in self.get_participants(): #random number for each participant for the final payoff
+            p.participant.vars['rand_round'] = random.randint(1,3)
+        print('vars is', p.participant.vars)
+
         if self.round_number == (Constants.super_round_1 +1):
             self.group_randomly()
             print(self.get_group_matrix())
@@ -69,6 +74,7 @@ class Subsession(BaseSubsession): #executes the functions at the start of the se
             g.prob_high = np.int_(random.choices([100,60],k=1, weights = [2/3,1/3])) 
             g.prob_low = np.int_(random.choices([100,60],k=1, weights = [1/3,2/3])) 
 
+
     def set_payoffs(self):
         for p in self.get_players():
             p.set_payoff()
@@ -82,7 +88,7 @@ class Group(BaseGroup):
         choices = [100,60]
         )
 
-    def count(self):
+    def count(self): #use the number/count of highs and lows to decide on bot decision
         p1 = self.get_player_by_id(1)
         p2 = self.get_player_by_id(2)
         p3 = self.get_player_by_id(3)
@@ -156,7 +162,8 @@ class Player(BasePlayer):
                     return (Constants.units/(Constants.team - 1))
                 else:
                     return (Constants.units/Constants.team)
-        
+
+    #compute the payoff based on group and bot decisions
     def set_payoff(self):
         opponent_1 = self.get_others_in_group()[0]
         opponent_2 = self.get_others_in_group()[1]
@@ -191,16 +198,13 @@ class Player(BasePlayer):
         return self.payoff
         
 
-    #select a random super_round and display the sum of that
-
-    def round(self):
-        return random.randint(1, 3)
+    #display the sum of the random super round and compute payoff
 
     def final_payoff(self):
         p = self
-        if self.round() == 1:
+        if self.participant.vars['rand_round'] == 1:
             return (sum([p.payoff for p in p.in_rounds(1, Constants.super_round_1)]))
-        elif self.round() ==2:
+        elif self.participant.vars['rand_round'] == 2:
             return (sum([p.payoff for p in p.in_rounds((Constants.super_round_1+1), Constants.round_2)]))
         else:
-            return (sum([p.payoff for p in p.in_rounds((Constants.round_2+1), (Constants.round_3))]))   
+            return (sum([p.payoff for p in p.in_rounds((Constants.round_2+1), (Constants.round_3))]))

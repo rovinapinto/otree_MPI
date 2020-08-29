@@ -6,9 +6,11 @@
 {% endblock %}
 
 {% block content %}
-	<p>Darüber hinaus ist Runde {{player.round}} zufällig für die Auszahlung ausgewählt worden.</p>
+	<p>Darüber hinaus ist Runde {{rand_round}} zufällig für die Auszahlung ausgewählt worden.</p>
     <br>
     <p> Dort haben Sie {{player.final_payoff}}.</p>
+    <br>
+    <p> The final payment in euros along with participation fee is {{payment}}.</p>
     {% next_button %}
 {% endblock %}
 
