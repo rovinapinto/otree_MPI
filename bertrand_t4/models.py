@@ -52,6 +52,10 @@ class Constants(BaseConstants):
 
 class Subsession(BaseSubsession):
     def creating_session(self):
+        for p in self.get_participants(): #random number for each participant for the final payoff
+            p.participant.vars['rand_round'] = random.randint(1,3)
+        print('vars is', p.participant.vars)
+        
         if self.round_number == (Constants.super_round_1 +1):
             self.group_randomly()
             print(self.get_group_matrix())
@@ -157,17 +161,14 @@ class Player(BasePlayer):
                     return (Constants.units/Constants.players_per_group)
 
 
-    #select a random super_round and display the sum of that
-
-    def round(self):
-        return random.randint(1, 3)
+    #display the sum of the random super round and compute payoff
 
     def final_payoff(self):
         p = self
-        if self.round() == 1:
-            return sum([p.payoff for p in p.in_rounds(1, Constants.super_round_1)])
-        elif self.round ==2:
-            return sum([p.payoff for p in p.in_rounds((Constants.super_round_1+1), Constants.round_2)])
+        if self.participant.vars['rand_round'] == 1:
+            return (sum([p.payoff for p in p.in_rounds(1, Constants.super_round_1)]))
+        elif self.participant.vars['rand_round'] == 2:
+            return (sum([p.payoff for p in p.in_rounds((Constants.super_round_1+1), Constants.round_2)]))
         else:
-            return sum([p.payoff for p in p.in_rounds((Constants.round_2+1), (Constants.round_3))])    
+            return (sum([p.payoff for p in p.in_rounds((Constants.round_2+1), (Constants.round_3))]))  
 

@@ -57,5 +57,12 @@ class Results(Page):
     def is_displayed(self):
         return self.round_number == Constants.num_rounds
 
+    def vars_for_template(self):
+        self.participant.payoff = self.player.final_payoff()
+        return {
+            'payment': self.participant.payoff_plus_participation_fee(),
+            'rand_round': self.participant.vars['rand_round']
+        }
+
 
 page_sequence = [Introduction,Start,Decision, ResultsWaitPage, Period_Result, Result_round, Results]
