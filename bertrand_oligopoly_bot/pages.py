@@ -59,8 +59,9 @@ class Results(Page):
 
     def vars_for_template(self):
         self.participant.payoff = self.player.final_payoff()
+        self.participant.vars['payment'] = self.participant.payoff_plus_participation_fee()
         return {
-            'payment': self.participant.payoff_plus_participation_fee(),
+            'payment': self.participant.vars['payment'],
             'rand_round': self.participant.vars['rand_round']
         }
 

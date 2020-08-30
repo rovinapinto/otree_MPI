@@ -53,9 +53,8 @@ class Constants(BaseConstants):
 
 class Subsession(BaseSubsession): #executes the functions at the start of the session ie for all rounds at once
     def creating_session(self): #random grouping for each super_round    
-        for p in self.get_participants(): #random number for each participant for the final payoff
+        for p in self.get_players(): #random number for each participant for the final payoff
             p.participant.vars['rand_round'] = random.randint(1,3)
-        print('vars is', p.participant.vars)
 
         if self.round_number == (Constants.super_round_1 +1):
             self.group_randomly()

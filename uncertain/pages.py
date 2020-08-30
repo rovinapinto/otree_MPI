@@ -11,4 +11,5 @@ class Question(Page):
 class Results(Page):
     pass
 
+
 page_sequence = [Question, Results]

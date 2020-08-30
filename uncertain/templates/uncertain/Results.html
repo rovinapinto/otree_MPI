@@ -6,8 +6,9 @@
 {% endblock %}
 
 {% block content %}
-	<p> Dort haben Sie {{player.payoff_quest}} EUR.</p>
-
+	<p> Dort haben Sie {{player.payoff_quest}}</p>
+	<br>
+    <p> Your final payment including payoff, show up fee and uncertainty quest is {{player.total_pay}}. </p>
     {% next_button %}
 {% endblock %}
 

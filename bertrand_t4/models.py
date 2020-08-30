@@ -52,9 +52,8 @@ class Constants(BaseConstants):
 
 class Subsession(BaseSubsession):
     def creating_session(self):
-        for p in self.get_participants(): #random number for each participant for the final payoff
+        for p in self.get_players(): #random number for each participant for the final payoff
             p.participant.vars['rand_round'] = random.randint(1,3)
-        print('vars is', p.participant.vars)
         
         if self.round_number == (Constants.super_round_1 +1):
             self.group_randomly()
