@@ -33,7 +33,7 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     n1 = models.FloatField()
-    payoff_quest = models.CurrencyField(initial=0) #need this in the currency field!!
+    payoff_quest = models.FloatField(initial = 0) 
 
     def total_pay(self):
-        return self.payoff_quest.to_real_world_currency(self.session) # + self.participant.vars['payment'] 
+        return self.payoff_quest + self.participant.vars['payment'] 

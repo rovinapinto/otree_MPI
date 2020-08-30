@@ -96,8 +96,6 @@ class Group(BaseGroup):
         choices_made.append(p1.in_round(self.round_number - 1).decision)
         choices_made.append(p2.in_round(self.round_number - 1).decision)
         choices_made.append(p3.in_round(self.round_number - 1).decision)
-        print(choices_made)
-        print(choices_made.count(100))
 
         return choices_made.count(100)
 
