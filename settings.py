@@ -49,11 +49,6 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
         app_sequence=['regret_pilot']
     ),
-    dict(
-        name='market_app',
-        num_demo_participants=1,
-        app_sequence=['Market_app']
-    ),
     dict(name='prisoner', display_name="Prisoner's Dilemma", num_demo_participants=2,
       app_sequence=['prisoner', 'payment_info']
       ),
