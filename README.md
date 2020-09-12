@@ -25,6 +25,6 @@ What you will find in the above betrand_* apps are how to :
   - create a slider in the html page- see uncertain
   
 For more details on how to use oTree, please see:
-https://otree.readthedocs.io/en/latest/
-https://groups.google.com/g/otree
+  -https://otree.readthedocs.io/en/latest/
+  -https://groups.google.com/g/otree
 
