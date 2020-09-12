@@ -29,5 +29,5 @@ For more details on how to use oTree, please see:
   - https://groups.google.com/g/otree
   - https://github.com/oTree-org/oTree
   
-Please refer to the licenese for information on copyright and citation. 
+Please refer to the license for information on copyright and citation. 
 
